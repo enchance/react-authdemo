@@ -1,7 +1,22 @@
-@import "../../../node_modules/bootstrap/scss/mixins/banner";
-@include bsBanner("");
+//@import "../../../node_modules/bootstrap/scss/mixins/banner";
+//@include bsBanner("");
 @import '../../../node_modules/bootstrap/scss/functions';
 @import 'vars';
 @import 'bootstrap_imports';
-@import 'init';
+@import 'reusable';
 @import 'templates';
+
+
+/*
+                           dP
+                           88
+88d888b. .d8888b. dP   .dP 88d888b. .d8888b. 88d888b.
+88'  `88 88'  `88 88   d8' 88'  `88 88'  `88 88'  `88
+88    88 88.  .88 88 .88'  88.  .88 88.  .88 88
+dP    dP `88888P8 8888P'   88Y8888' `88888P8 dP
+*/
+#navbar {background:$primary!important;
+    .navbar-nav {
+        > a {height:$navbar-height; line-height:$navbar-height;}
+    }
+}

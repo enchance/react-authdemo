@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {
     return (
-        <div className={'basetemplate'}>
+        <div className={'base-template'}>
             <Header />
             {props.children}
             <Footer />
