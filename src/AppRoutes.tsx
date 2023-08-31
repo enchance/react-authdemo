@@ -3,7 +3,6 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './assets/css/App.css';
 
 import S from "./app/settings";
-import {AuthWatcherPage} from "./app/auth/pages/AuthWatcherPage";
 import {isAuth, isGuest, ProtectedRoute} from "./app/helpers";
 import {EmailRegisterPage} from "./app/auth/pages/EmailRegisterPage";
 import {EmailSigninPage} from "./app/auth/pages/EmailSigninPage";
@@ -25,8 +24,8 @@ function AppRoutes() {
 
           <Route element={<ProtectedRoute enable={isAuth} fallback={<HomeGuestPage />} />}>
           </Route>
-          
-          <Route path="*" element={<AuthWatcherPage />} />
+
+          <Route path={'*'} element={isAuth() ? <HomeUserPage /> : <HomeGuestPage />} />
       </Routes>
     </BrowserRouter>
   );
