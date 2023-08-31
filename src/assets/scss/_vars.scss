@@ -2,14 +2,23 @@
 
 
 /* Colors */
-$link-color:    #09F;
-$primary:       #77c9e1;
-$secondary:     #88C0D0;
+$link-color:        #09F;
+$color-background:      #efefef;
+$color-onbackground:    #333;
+$color-primary:         #77c9e1;
+$color-onprimary:       #FFF;
+$color-onhover-primary: #FFF;
+$color-secondary:       #88C0D0;
+$color-onsecondary:     $color-onbackground;
+$color-onhover-secondary: $color-onbackground;
+$color-tertiary:    $color-secondary;
+$color-ontertiary:  $color-onsecondary;
+$color-onhover-tertiary:  $color-onsecondary;
 //$buy-color:     #08BCA8;
 //$sell-color:    #FF6962;
 //$link-hover-color: $buy-color;
 /* Custom */
-$btn-hover:     saturate(#ebcb8b, 20%);
+$btn-hover: saturate(#ebcb8b, 20%);
 
 /* Light mode */
 //$lightmode-font:    #333;
@@ -27,17 +36,14 @@ $btn-hover:     saturate(#ebcb8b, 20%);
 /* Font */
 $font-size-base:    1.2rem;
 $font-family:       Lato, Arial, "Helvetica Neue", Helvetica, sans-serif;
-$font-color:        #333;
-$header-family:     'League Spartan', Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font-color:        $color-onbackground;
+$header-family:     'Nunito Sans', 'League Spartan', Arial, "Helvetica Neue", Helvetica, sans-serif;
 $text-light:        200;
-$text-bold:         700;
-$text-bronze:       #ef9b81;
-$text-silver:       #DDD;
-$text-gold:         #fff2af;
-$gold:              #d1b765;
-$gold-dark:         shade-color($gold, 35);
-$gold-dark-icon:    shade-color($gold, 20);
-$btn-height:        55px;
+$text-bold:         600;
+//$gold:              #d1b765;
+//$gold-dark:         shade-color($gold, 35);
+//$gold-dark-icon:    shade-color($gold, 20);
+//$btn-height:        55px;
 
 /* Navbar */
 $navbar-padding-y: 0;

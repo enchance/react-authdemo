@@ -7,11 +7,20 @@ import {NavLink} from "react-router-dom";
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {
     return (
-        <>
+        <div className={'basetemplate'}>
             <Header />
             {props.children}
             <Footer />
-        </>
+        </div>
+    )
+}
+
+
+export const SidebarTemplate: React.FC<PropsWithChildren> = props => {
+    return (
+        <div className={'sidebar-template'}>
+            <h1>Unfinished Sidebar Template</h1>
+        </div>
     )
 }
 
