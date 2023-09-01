@@ -11,6 +11,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import S from "../app/settings";
+import {BootstrapDisplay} from "../app/helpers";
 
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {
@@ -62,6 +63,9 @@ export const Header: React.FC = () => {
                         <NavLink to={S.path.register} className={'nav-link'}>Register</NavLink>
                         <NavLink to={S.path.signin} className={'nav-link'}>Sign-in</NavLink>
                         <NavLink to={S.path.lostpass} className={'nav-link'}>Lost Password</NavLink>
+                    </Nav>
+                    <Nav>
+                        <BootstrapDisplay />
                     </Nav>
                 </Navbar.Collapse>
             </Container>

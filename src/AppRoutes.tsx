@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/css/App.css';
 
 import S from "./app/settings";

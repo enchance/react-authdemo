@@ -1,15 +1,15 @@
 import React from "react";
 import {BaseTemplate, SidebarTemplate} from "../templates/BaseTemplate";
-import {AuthOptionsComp} from "../app/auth/pages/AuthOptionsComp";
+import {AuthOptionsPart} from "../app/auth/pages/AuthOptionsPart";
 import {SidebarPart} from "./SidebarPart";
 
 
 export const HomeGuestPage: React.FC = () => {
     return (
         <SidebarTemplate sidebar={<SidebarPart />}>
-            <AuthOptionsComp />
+            <AuthOptionsPart />
         </SidebarTemplate>
-    )
+    );
 }
 
 
@@ -18,5 +18,5 @@ export const HomeUserPage: React.FC = () => {
         <BaseTemplate>
             <h1>User Landing</h1>
         </BaseTemplate>
-    )
+    );
 }
