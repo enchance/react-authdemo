@@ -1,13 +1,14 @@
 import React from "react";
-import {BaseTemplate} from "../templates/BaseTemplate";
+import {BaseTemplate, SidebarTemplate} from "../templates/BaseTemplate";
 import {AuthOptionsComp} from "../app/auth/pages/AuthOptionsComp";
+import {SidebarPart} from "./SidebarPart";
 
 
 export const HomeGuestPage: React.FC = () => {
     return (
-        <BaseTemplate>
+        <SidebarTemplate sidebar={<SidebarPart />}>
             <AuthOptionsComp />
-        </BaseTemplate>
+        </SidebarTemplate>
     )
 }
 
