@@ -10,6 +10,7 @@ class Production {
 
 class Development extends Production {
     readonly DEBUG = true;
+    SITEURL = 'https://localhost:3500';
 }
 
 

@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BaseTemplate} from "../../../templates/BaseTemplate";
 import {z} from "zod";
 import {useForm, FieldValues} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {FieldErrors} from "react-hook-form/dist/types/errors";
+
+import {delay} from "../../utils";
+import {api} from "../../helpers";
 
 
 export const EmailRegisterPage: React.FC = () => {
@@ -24,6 +28,8 @@ export const EmailRegisterPage: React.FC = () => {
 
     return (
         <BaseTemplate>
+            <Aaa />
+            {/*
             <div className="card">
                 <div className="card-body">
                     <div className="card-title">
@@ -54,6 +60,75 @@ export const EmailRegisterPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            */}
         </BaseTemplate>
+    )
+}
+
+
+export const Aaa: React.FC = () => {
+    const [formdata, setFormdata] = useState({});
+    const [fresh, setFresh] = useState(true)
+    const formschema = z.object({
+        email: z.string().email().trim(),
+        country: z.string().min(5).trim(),
+        gender: z.string().max(10).trim(),
+    });
+    type FormSchema = z.infer<typeof formschema>;
+    const {register, handleSubmit, reset, setError, formState: {errors, isSubmitting}} = useForm<FormSchema>({
+        resolver: zodResolver(formschema),
+    });
+
+    // Populate
+    useEffect(() => {
+        const id = Math.floor(Math.random() * 10);
+        // id = id ? id : 1;
+
+        delay(1000).then(_ => {
+            console.log(id);
+            return api.get(`/users/${id}`);
+        }).then(response => {
+            setFormdata({...response.data});
+            setFresh(false);
+            console.log(response.data);
+        }).catch(err => {
+            console.log(err);
+            setFormdata({})
+        })
+    }, []);
+
+    useEffect(() => {
+        reset(formdata);
+    }, [formdata]);
+
+    const onSubmit = async (data: FieldValues) => {
+        if(fresh || isSubmitting) return;
+        // Submit here
+        await delay(2000);
+        console.log(data);
+    }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <ul className={'form nopadding'}>
+                <li>
+                    <label htmlFor="email">Email</label>
+                    <input {...register('email')} type="text" className="form-control" id={'email'}
+                           disabled={fresh || isSubmitting} placeholder={fresh ? 'Loading...' : ''} />
+                    {errors.email && <div className="text-danger">{errors.email.message}</div>}
+                </li>
+                <li>
+                    <label htmlFor={'country'}>Country</label>
+                    <input {...register('country')} type="text" className="form-control"
+                           id="country" disabled={fresh || isSubmitting} />
+                    {errors.country && <div className="text-danger">{errors.country.message}</div>}
+                </li>
+            </ul>
+            <div className={'submit'}>
+                <button className="btn btn-primary w-100" disabled={isSubmitting} type="submit">
+                    {isSubmitting ? 'Loading...' : 'Submit'}
+                </button>
+            </div>
+        </form>
     )
 }

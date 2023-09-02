@@ -1,7 +1,14 @@
 import React from "react";
 import {Navigate, Outlet} from "react-router-dom";
+import axios from "axios";
 
 
+
+
+export const api = axios.create({
+    withCredentials: true,
+    baseURL: 'http://localhost:3500',
+});
 
 type ProtectedRouteProps = {
     enable: () => boolean;
@@ -20,7 +27,6 @@ export const ProtectedRoute = ({enable, fallback}: ProtectedRouteProps) => {
     if(typeof fallback === 'string') return <Navigate to={fallback} />;
     return fallback;
 };
-
 
 export const BootstrapDisplay: React.FC = () => {
     return (
