@@ -1,14 +1,7 @@
 import React from "react";
 import {Navigate, Outlet} from "react-router-dom";
-import axios from "axios";
 
 
-
-
-export const api = axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:3500',
-});
 
 type ProtectedRouteProps = {
     enable: () => boolean;
