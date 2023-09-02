@@ -24,7 +24,7 @@ function AppRoutes() {
 
           <Route element={<ProtectedRoute enable={() => isAuth(false)} fallback={<HomeUserPage />} />}>
               <Route path={S.path.register} element={<EmailRegisterPage />} />
-              <Route path={S.path.login} element={<EmailLogininPage />} />
+              <Route path={S.path.signin} element={<EmailLogininPage />} />
               <Route path={S.path.lostpass} element={<LostPasswordPage />} />
           </Route>
 

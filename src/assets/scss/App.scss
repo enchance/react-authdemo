@@ -1,22 +1,24 @@
-//@import "../../../node_modules/bootstrap/scss/mixins/banner";
-//@include bsBanner("");
+
+// Do NOT change the order of these imports
+// https://getbootstrap.com/docs/5.3/customize/sass/#importing
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import '../../../node_modules/bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
 @import 'vars';
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import '../../../node_modules/bootstrap/scss/variables';
+//@import '../../../node_modules/bootstrap/scss/variables-dark';
+
+// 4. Include any default map overrides here
+@import 'map_overrides';
+
+// 5. Include remainder of required parts
 @import 'bootstrap_imports';
+
+// 6. Add additional custom code here
 @import 'reusable';
 @import 'templates';
-
-
-/*
-                           dP
-                           88
-88d888b. .d8888b. dP   .dP 88d888b. .d8888b. 88d888b.
-88'  `88 88'  `88 88   d8' 88'  `88 88'  `88 88'  `88
-88    88 88.  .88 88 .88'  88.  .88 88.  .88 88
-dP    dP `88888P8 8888P'   88Y8888' `88888P8 dP
-*/
-#navbar {background:$primary!important;
-//    .navbar-nav {
-//        > a {height:$navbar-height; line-height:$navbar-height;}
-//    }
-}
+@import 'styles';

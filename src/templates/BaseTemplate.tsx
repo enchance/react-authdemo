@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
                         {!isAuth() && (
                             <>
                                 <NavLink to={S.path.register} className={'nav-link'}>Register</NavLink>
-                                <NavLink to={S.path.login} className={'nav-link'}>Sign-in</NavLink>
+                                <NavLink to={S.path.signin} className={'nav-link'}>Sign-in</NavLink>
                                 <NavLink to={S.path.lostpass} className={'nav-link'}>Lost Password</NavLink>
                             </>
                         )}

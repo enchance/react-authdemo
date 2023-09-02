@@ -21,8 +21,8 @@ class Staging extends Production {
 
 class RoutePath {
     readonly register = '/auth/register';
-    readonly login = '/auth/signin';
     readonly lostpass = '/auth/lostpass';
+    readonly signin = '/auth/signin';
     readonly signout = '/auth/signout';
 }
 

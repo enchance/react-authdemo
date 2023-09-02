@@ -46,6 +46,7 @@ type IconProps = {
 * */
 export const Icons: React.FC<IconProps> = props => {
     const style = {
+        display: 'inline-block',
         fontSize: props.size ?? '20px',
         color: props.color ?? '#3333',
         ...(props.style ?? {}),
