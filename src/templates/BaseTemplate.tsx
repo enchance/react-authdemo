@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import S from "../app/settings";
 import {BootstrapDisplay} from "../app/helpers";
+import {useAuthStore} from "../app/auth/store";
 
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {
@@ -52,6 +53,8 @@ export const SidebarTemplate: React.FC<SidebarTemplateProps> = props => {
 
 
 export const Header: React.FC = () => {
+    const isAuth = useAuthStore(state => state.isAuth);
+
     return (
         <Navbar id={'navbar'} expand="lg" className="bg-body-tertiary">
             <Container>
@@ -60,9 +63,18 @@ export const Header: React.FC = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink to={'/'} className={'nav-link'}>Home</NavLink>
-                        <NavLink to={S.path.register} className={'nav-link'}>Register</NavLink>
-                        <NavLink to={S.path.signin} className={'nav-link'}>Sign-in</NavLink>
-                        <NavLink to={S.path.lostpass} className={'nav-link'}>Lost Password</NavLink>
+                        {!isAuth() && (
+                            <>
+                                <NavLink to={S.path.register} className={'nav-link'}>Register</NavLink>
+                                <NavLink to={S.path.login} className={'nav-link'}>Sign-in</NavLink>
+                                <NavLink to={S.path.lostpass} className={'nav-link'}>Lost Password</NavLink>
+                            </>
+                        )}
+                        {isAuth() && (
+                            <>
+                                <NavLink to={S.path.signout} className={'nav-link'}>Sign-out</NavLink>
+                            </>
+                        )}
                     </Nav>
                     <Nav>
                         <BootstrapDisplay />

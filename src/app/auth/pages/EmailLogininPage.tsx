@@ -3,7 +3,7 @@ import {BaseTemplate} from "../../../templates/BaseTemplate";
 
 
 
-export const EmailSigninPage: React.FC = () => {
+export const EmailLogininPage: React.FC = () => {
     return (
         <BaseTemplate>
             <h1>Email Sign-in</h1>

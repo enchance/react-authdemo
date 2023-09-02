@@ -5,10 +5,12 @@ import {useForm, FieldValues} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FieldErrors} from "react-hook-form/dist/types/errors";
 import useSWR from "swr";
+import {useNavigate} from "react-router-dom";
 
 import S from "../../settings";
 import {delay} from "../../utils";
 import {api} from "../../api";
+import {useAuthStore} from "../store";
 
 
 export const EmailRegisterPage: React.FC = () => {
@@ -23,6 +25,10 @@ export const EmailRegisterPage: React.FC = () => {
 
 
 export const UsingSWR: React.FC = () => {
+    const authstore = useAuthStore();
+    const navigate = useNavigate();
+
+    // Form
     const formschema = z.object({
         email: z.string().email().trim(),
         fullname: z.string().min(2).trim(),
@@ -34,13 +40,12 @@ export const UsingSWR: React.FC = () => {
         resolver: zodResolver(formschema),
     });
 
+    // SWR
     const fetcher = async () => {
         await delay(2000);
         const res = await api.get(`/users/4`);
         return res.data;
     }
-
-    // const id = Math.floor(Math.random() * 10);
     const {isLoading, error, data} = useSWR('xxx', fetcher);
     useEffect(() => reset(data), [data]);
 
@@ -48,6 +53,23 @@ export const UsingSWR: React.FC = () => {
         if(isSubmitting) return;
         await delay(2000);
         console.log(data);
+
+        let token: string;
+
+        try {
+            // Run code here
+            token = 'xxx';
+            if(token === '') throw new Error();
+
+            authstore.login(token);
+            // TODO: Redirect user to '/'
+            navigate('/');
+        }
+        catch(e) {
+            console.log(e);
+            // TODO: Redirect user to error page
+            navigate('xxx');
+        }
     }
 
     console.log(`[BUILDING]`);
