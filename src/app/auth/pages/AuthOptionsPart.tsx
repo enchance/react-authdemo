@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from "firebase/auth";
 
 import S from "../../settings";
@@ -10,7 +10,8 @@ import {appAuth, appProvider} from "../../../AppRoutes";
 
 
 export const AuthOptionsPart: React.FC = () => {
-    const isAuth = useAuthStore(state => state.isAuth);
+    const authstore = useAuthStore();
+    const navigate = useNavigate();
 
     const googleHandler = () => {
         signInWithPopup(appAuth, appProvider)
@@ -19,6 +20,11 @@ export const AuthOptionsPart: React.FC = () => {
                 const token = credential?.accessToken;
                 const user = res.user;
                 console.log(user, token);
+
+                if(token !== null) {
+                    authstore.login(token!);
+                    navigate('/');
+                }
             })
             .catch(err => {
                 console.log(err)

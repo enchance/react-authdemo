@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/css/App.css';
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {getAuth, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
 
 
 import S from "./app/settings";
@@ -31,7 +31,22 @@ export const appProvider = new GoogleAuthProvider();
 
 
 function AppRoutes() {
-    const isAuth = useAuthStore(state => state.isAuth);
+    const [isAuth, logout, login] = useAuthStore(state => [state.isAuth, state.logout, state.login]);
+
+    useEffect(() => {
+        const authlistener = onAuthStateChanged(appAuth, (user) => {
+            // TODO: Ensuring authentication:
+            //  Save token to localstorage
+            //  if empty localstorage && !store: logout()
+            //  if empty localstorage && store: update to localstorage
+            //  if localstorage is fresh && !store: login()
+            //  if expired localstorage: check user, then repopulate + login() else logout()
+            //  if !localstorage && !store && user: then do nothing
+            if(isAuth() && !user) logout();
+        });
+
+        return (() => authlistener());
+    }, []);
 
   return (
     <BrowserRouter>

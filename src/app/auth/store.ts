@@ -13,7 +13,6 @@ interface IAuthStore {
 export const useAuthStore = create<IAuthStore>()((set, get) => ({
     name: 'foofoo',
     isAuth: (authOnly: boolean = true) => {
-        // TODO: Check the token BUT if it's false then check online
         if(authOnly) return get().token !== '';
         return get().token === '';
     },

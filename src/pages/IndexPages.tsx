@@ -1,4 +1,5 @@
 import React from "react";
+import {onAuthStateChanged} from 'firebase/auth';
 
 import {BaseTemplate, SidebarTemplate} from "../templates/BaseTemplate";
 import {AuthOptionsPart} from "../app/auth/pages/AuthOptionsPart";
