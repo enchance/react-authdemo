@@ -5,5 +5,5 @@ import S from "./settings";
 
 export const api = axios.create({
     withCredentials: true,
-    baseURL: 'http://localhost:3500',
+    baseURL: S.SITEURL,
 });

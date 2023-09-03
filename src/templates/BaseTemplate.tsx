@@ -65,14 +65,14 @@ export const Header: React.FC = () => {
                         <NavLink to={'/'} className={'nav-link'}>Home</NavLink>
                         {!isAuth() && (
                             <>
-                                <NavLink to={S.path.register} className={'nav-link'}>Register</NavLink>
-                                <NavLink to={S.path.signin} className={'nav-link'}>Sign-in</NavLink>
-                                <NavLink to={S.path.lostpass} className={'nav-link'}>Lost Password</NavLink>
+                                <NavLink to={S.paths.register} className={'nav-link'}>Register</NavLink>
+                                <NavLink to={S.paths.signin} className={'nav-link'}>Sign-in</NavLink>
+                                <NavLink to={S.paths.lostpass} className={'nav-link'}>Lost Password</NavLink>
                             </>
                         )}
                         {isAuth() && (
                             <>
-                                <NavLink to={S.path.signout} className={'nav-link'}>Sign-out</NavLink>
+                                <NavLink to={S.paths.signout} className={'nav-link'}>Sign-out</NavLink>
                             </>
                         )}
                     </Nav>

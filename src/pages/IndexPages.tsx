@@ -24,6 +24,9 @@ export const HomeGuestPage: React.FC = () => {
 
 
 export const HomeUserPage: React.FC = () => {
+    const token = useAuthStore(state => state.token);
+    console.log('TOKEN:', token);
+
     return (
         <BaseTemplate>
             <h1>User Landing</h1>

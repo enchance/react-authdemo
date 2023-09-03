@@ -18,6 +18,6 @@ export const useAuthStore = create<IAuthStore>()((set, get) => ({
         return get().token === '';
     },
     token: '',
-    login: async (token: string) => set(_ => ({token: token})),
+    login: (token: string) => set(_ => ({token: token})),
     logout: () => set(_ => ({token: ''})),
 }));

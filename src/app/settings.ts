@@ -5,12 +5,12 @@ class Production {
     SITEURL = 'https://aaa.com';
     DEBUG = false;
 
-    readonly path = new RoutePath();
+    readonly paths = new RoutePath();
 }
 
 class Development extends Production {
     readonly DEBUG = true;
-    SITEURL = 'https://localhost:3500';
+    SITEURL = 'http://localhost:3500';
 }
 
 

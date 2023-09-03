@@ -6,8 +6,11 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {FieldErrors} from "react-hook-form/dist/types/errors";
 import useSWR from "swr";
 import {useNavigate} from "react-router-dom";
+import {createUserWithEmailAndPassword, UserCredential} from "firebase/auth";
+import {FirebaseError} from "firebase/app";
 
 import S from "../../settings";
+import {appAuth} from "../../../AppRoutes";
 import {delay} from "../../utils";
 import {api} from "../../api";
 import {useAuthStore} from "../store";
@@ -30,49 +33,59 @@ export const UsingSWR: React.FC = () => {
 
     // Form
     const formschema = z.object({
-        email: z.string().email().trim(),
-        fullname: z.string().min(2).trim(),
-        country: z.string().trim().min(2).max(2),
-        // gender: z.string().max(10).trim(),
+        email: z.string().email().trim().toLowerCase(),
+        pass1: z.string().min(6).trim(),
+        pass2: z.string().min(6).trim(),
     });
     type FormSchema = z.infer<typeof formschema>;
     const {register, handleSubmit, reset, setError, formState: {errors, isSubmitting}} = useForm<FormSchema>({
         resolver: zodResolver(formschema),
+        defaultValues: {
+            pass1: 'pass123',
+            pass2: 'pass123',
+        }
     });
 
-    // SWR
+    // SWR: Just testing it. Actual form won't have this
     const fetcher = async () => {
         await delay(2000);
         const res = await api.get(`/users/4`);
         return res.data;
     }
-    const {isLoading, error, data} = useSWR('xxx', fetcher);
+    const {isLoading, error, data, mutate} = useSWR('xxx', fetcher);
     useEffect(() => reset(data), [data]);
 
     const onSubmit = async (data: FieldValues) => {
         if(isSubmitting) return;
         await delay(2000);
-        console.log(data);
 
-        let token: string;
-
-        try {
-            // Run code here
-            token = 'xxx';
-            if(token === '') throw new Error();
-
-            authstore.login(token);
-            // TODO: Redirect user to '/'
-            navigate('/');
-        }
-        catch(e) {
-            console.log(e);
-            // TODO: Redirect user to error page
-            navigate('xxx');
-        }
+        // Run code here
+        createUserWithEmailAndPassword(appAuth, data['email'], data['pass1'])
+            .then(res => {
+                const user = res.user;
+                return user.getIdToken();
+            })
+            .then(token => {
+                authstore.login(token);
+                // TODO: Send token to server
+                // TODO: Redirect user to '/'
+                navigate('/');
+            })
+            .catch(err => {
+                if(err.code === 'auth/email-already-in-use') {
+                    setError('email', {
+                        message: 'Email already in use'
+                    });
+                }
+                else {
+                    setError('email', {
+                        message: 'Try again in a few seconds'
+                    });
+                }
+            });
     }
 
-    console.log(`[BUILDING]`);
+    // console.log(`[BUILDING]`);
     return (
         <>
             {error && (
@@ -87,16 +100,13 @@ export const UsingSWR: React.FC = () => {
                         {errors.email && <div className="text-danger">{errors.email.message}</div>}
                     </li>
                     <li>
-                        <label htmlFor={'fullname'}>Fullname</label>
-                        <input {...register('fullname')} type="text" className="form-control" name={'fullname'}
-                               id="fullname" disabled={isSubmitting} />
-                        {errors.fullname && <div className="text-danger">{errors.fullname.message}</div>}
-                    </li>
-                    <li>
-                        <label htmlFor={'country'}>Country</label>
-                        <input {...register('country')} type="text" className="form-control" name={'country'}
-                               id="country" disabled={isSubmitting} />
-                        {errors.country && <div className="text-danger">{errors.country.message}</div>}
+                        <label htmlFor={'pass1'}>Password</label>
+                        <input {...register('pass1')} type="password" className="form-control" name={'pass1'}
+                               id="pass1" disabled={isSubmitting} />
+                        {errors.pass1 && <div className="text-danger">{errors.pass1.message}</div>}
+                        <input {...register('pass2')} type="password" className="form-control" name={'pass2'}
+                               disabled={isSubmitting} placeholder={'Retype'} />
+                        {errors.pass2 && <div className="text-danger">{errors.pass2.message}</div>}
                     </li>
                 </ul>
                 <div className={'submit'}>

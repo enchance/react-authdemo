@@ -1,14 +1,31 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from "firebase/auth";
 
 import S from "../../settings";
 import {Icons} from "../../helpers";
 import {useAuthStore} from "../store";
+import {appAuth, appProvider} from "../../../AppRoutes";
 
 
 
 export const AuthOptionsPart: React.FC = () => {
     const isAuth = useAuthStore(state => state.isAuth);
+
+    const googleHandler = () => {
+        signInWithPopup(appAuth, appProvider)
+            .then(res => {
+                const credential = GoogleAuthProvider.credentialFromResult(res);
+                const token = credential?.accessToken;
+                const user = res.user;
+                console.log(user, token);
+            })
+            .catch(err => {
+                console.log(err)
+                const credential = GoogleAuthProvider.credentialFromError(err);
+                console.log(credential);
+            })
+    }
 
     return (
         <div className={'row mt-5 bg-xxx'}>
@@ -17,14 +34,18 @@ export const AuthOptionsPart: React.FC = () => {
                     <div className="card-body">
                         <h1 className="card-title">Login</h1>
                         <ul className={'form nopadding'}>
-                            <li><button className="btn btn-primary btn-danger w-100">
-                                <Icons icon={'bi bi-google me-2'} color={'#FFF'} />
-                                <strong>Google Sign-in</strong>
-                            </button></li>
-                            <li><Link className="btn btn-gray w-100" to={S.path.signin}>
-                                <Icons icon={'bi bi-envelope-fill me-2'} color={'#333'} />
-                                <strong>Email Sign-in</strong>
-                            </Link></li>
+                            <li>
+                                <button className="btn btn-primary btn-danger w-100" onClick={googleHandler}>
+                                    <Icons icon={'bi bi-google me-2'} color={'#FFF'} />
+                                    <strong>Google Sign-in</strong>
+                                </button>
+                            </li>
+                            <li>
+                                <Link className="btn btn-gray w-100" to={S.paths.signin}>
+                                    <Icons icon={'bi bi-envelope-fill me-2'} color={'#333'} />
+                                    <strong>Email Sign-in</strong>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
