@@ -13,13 +13,3 @@ dP    dP `88888P8 8888P'   88Y8888' `88888P8 dP
     //        > a {height:$navbar-height; line-height:$navbar-height;}
     //    }
 }
-
-
-/*
-Buttons
-*/
-.btn {
-    &.btn-gray {
-        @include button-variant($gray-200, #CCC, $onbackground, $gray-300);
-    }
-}
