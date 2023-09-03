@@ -1,11 +1,13 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from "firebase/auth";
+import {GoogleAuthProvider, signInWithPopup, ParsedToken} from "firebase/auth";
+import jwt_decode from 'jwt-decode';
 
 import S from "../../settings";
 import {Icons} from "../../helpers";
 import {useAuthStore} from "../store";
 import {appAuth, appProvider} from "../../../AppRoutes";
+import Auth from "../Auth";
 
 
 
@@ -16,15 +18,17 @@ export const AuthOptionsPart: React.FC = () => {
     const googleHandler = () => {
         signInWithPopup(appAuth, appProvider)
             .then(res => {
-                const credential = GoogleAuthProvider.credentialFromResult(res);
-                const token = credential?.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(res);
+                // console.log('TOKEN1:', credential!.accessToken!);
                 const user = res.user;
-                console.log(user, token);
+                return user.getIdToken();
+            })
+            .then(token => {
+                if(token ?? true) return;
+                if(Auth.isTokenExpired(token)) return;
 
-                if(token !== null) {
-                    authstore.login(token!);
-                    navigate('/');
-                }
+                authstore.login(token!);
+                navigate('/');
             })
             .catch(err => {
                 console.log(err)

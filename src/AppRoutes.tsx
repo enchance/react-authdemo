@@ -18,12 +18,12 @@ import {LogoutAction} from "./app/auth/pages/LogoutAction";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCjKK_wTr7JBfXGjWuL5GAIJ2MYYvP1CK8",
-    authDomain: "sandbox-6ac33.firebaseapp.com",
-    projectId: "sandbox-6ac33",
-    storageBucket: "sandbox-6ac33.appspot.com",
-    messagingSenderId: "180774583906",
-    appId: "1:180774583906:web:e113e1f554f498e8aedb3b"
+    apiKey: process.env.REACT_APP_APIKEY,
+    authDomain: process.env.REACT_APP_AUTHDOMAIN,
+    projectId: process.env.REACT_APP_PROJECTID,
+    storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_APPID,
 };
 export const app = initializeApp(firebaseConfig);
 export const appAuth = getAuth(app);
@@ -37,10 +37,10 @@ function AppRoutes() {
         const authlistener = onAuthStateChanged(appAuth, (user) => {
             // TODO: Ensuring authentication:
             //  Save token to localstorage
+            //  ORDER: store -> localstorage -> [user]-> logout()
             //  if empty localstorage && !store: logout()
             //  if empty localstorage && store: update to localstorage
             //  if localstorage is fresh && !store: login()
-            //  if expired localstorage: check user, then repopulate + login() else logout()
             //  if !localstorage && !store && user: then do nothing
             if(isAuth() && !user) logout();
         });

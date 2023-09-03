@@ -68,7 +68,6 @@ export const UsingSWR: React.FC = () => {
             .then(token => {
                 authstore.login(token);
                 // TODO: Send token to server
-                // TODO: Redirect user to '/'
                 navigate('/');
             })
             .catch(err => {

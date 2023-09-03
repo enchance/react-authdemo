@@ -1,6 +1,8 @@
 import {create} from "zustand";
 import {NavigateFunction} from "react-router/dist/lib/hooks";
 
+import S from "../settings";
+
 
 interface IAuthStore {
     name: string,
@@ -17,6 +19,12 @@ export const useAuthStore = create<IAuthStore>()((set, get) => ({
         return get().token === '';
     },
     token: '',
-    login: (token: string) => set(_ => ({token: token})),
-    logout: () => set(_ => ({token: ''})),
+    login: (token: string) => {
+        localStorage.setItem(S.keys.token, token);
+        set(_ => ({token: token}));
+    },
+    logout: () => {
+        localStorage.removeItem(S.keys.token);
+        set(_ => ({token: ''}));
+    },
 }));
