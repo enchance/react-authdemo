@@ -10,11 +10,12 @@ import S from "./app/settings";
 import {ProtectedRoute} from "./app/helpers";
 import {EmailRegisterPage} from "./app/auth/pages/EmailRegisterPage";
 import {EmailLogininPage} from "./app/auth/pages/EmailLogininPage";
-import {HomeGuestPage, HomeUserPage, IndexPage} from "./pages/IndexPages";
+import {HomeUserPage, IndexPage} from "./pages/IndexPages";
 import {LostPasswordPage} from "./app/auth/pages/LostPasswordPage";
 import {useAuthStore} from "./app/auth/store";
 import {Error404Page} from "./app/pages/ErrorPages";
 import {LogoutAction} from "./app/auth/pages/LogoutAction";
+import {AuthOptionsPage} from "./app/auth/pages/AuthOptionsPage";
 
 
 const firebaseConfig = {
@@ -33,20 +34,22 @@ export const appProvider = new GoogleAuthProvider();
 function AppRoutes() {
     const [isAuth, logout, login] = useAuthStore(state => [state.isAuth, state.logout, state.login]);
 
-    useEffect(() => {
-        const authlistener = onAuthStateChanged(appAuth, (user) => {
-            // TODO: Ensuring authentication:
-            //  Save token to localstorage
-            //  ORDER: store -> localstorage -> [user]-> logout()
-            //  if empty localstorage && !store: logout()
-            //  if empty localstorage && store: update to localstorage
-            //  if localstorage is fresh && !store: login()
-            //  if !localstorage && !store && user: then do nothing
-            if(isAuth() && !user) logout();
-        });
-
-        return (() => authlistener());
-    }, []);
+    // useEffect(() => {
+    //     const authlistener = onAuthStateChanged(appAuth, (user) => {
+    //         // TODO: Ensuring authentication:
+    //         //  Save token to localstorage
+    //         //  ORDER: store -> localstorage -> [user]-> logout()
+    //         //  if empty localstorage && !store: logout()
+    //         //  if empty localstorage && store: update to localstorage
+    //         //  if localstorage is fresh && !store: login()
+    //         //  if !localstorage && !store && user: then do nothing
+    //         console.log('USER:', user);
+    //         if(isAuth() && !user) logout();
+    //         logout();
+    //     });
+    //
+    //     return (() => authlistener());
+    // }, []);
 
   return (
     <BrowserRouter>
@@ -59,7 +62,7 @@ function AppRoutes() {
               <Route path={S.paths.lostpass} element={<LostPasswordPage />} />
           </Route>
 
-          <Route element={<ProtectedRoute enable={isAuth} fallback={<HomeGuestPage />} />}>
+          <Route element={<ProtectedRoute enable={isAuth} fallback={<AuthOptionsPage />} />}>
               <Route path={S.paths.signout} element={<LogoutAction />} />
           </Route>
 
