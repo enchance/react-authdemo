@@ -1,9 +1,5 @@
-import React, {PropsWithChildren} from "react";
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import Container from 'react-bootstrap/Container';
-// import {Nav, Navbar, NavDropdown, Container} from "react-bootstrap";
-import {Link, NavLink} from "react-router-dom";
+import React, {useEffect, PropsWithChildren} from "react";
+import {Link, NavLink, useLocation, useNavigate} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
@@ -13,17 +9,20 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import S from "../app/settings";
 import {BootstrapDisplay} from "../app/helpers";
 import {useAuthStore} from "../app/auth/store";
+import {WrapperTemplate} from "../app/wrappers";
 
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {
     return (
-        <div className={'base-template'}>
-            <Header />
-            <div className="container">
-                {props.children}
+        <WrapperTemplate>
+            <div className={'base-template'}>
+                <Header />
+                <div className="container">
+                    {props.children}
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </WrapperTemplate>
     )
 }
 
@@ -34,20 +33,22 @@ type SidebarTemplateProps = {
 
 export const SidebarTemplate: React.FC<SidebarTemplateProps> = props => {
     return (
-        <div className={'sidebar-template'}>
-            <Header />
-            <div className="container-fluid">
-                <div className="row">
-                    <aside className={'sidebar col-md-3 col-xl-2 bg-primary d-none d-md-block vh-100'}>
-                        {props.sidebar}
-                    </aside>
-                    <div className="content col-12 col-md-9 col-xl-10 bg-secondary vh-100">
-                        {props.children}
+        <WrapperTemplate>
+            <div className={'sidebar-template'}>
+                <Header />
+                <div className="container-fluid">
+                    <div className="row">
+                        <aside className={'sidebar col-md-3 col-xl-2 bg-primary d-none d-md-block vh-100'}>
+                            {props.sidebar}
+                        </aside>
+                        <div className="content col-12 col-md-9 col-xl-10 bg-secondary vh-100">
+                            {props.children}
+                        </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </WrapperTemplate>
     )
 }
 

@@ -21,8 +21,5 @@ export const LogoutAction: React.FC = () => {
             })
     }, []);
 
-    return (
-        <>
-        </>
-    );
+    return <></>;
 }

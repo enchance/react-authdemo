@@ -10,6 +10,7 @@ class Auth {
     * */
     public static isTokenExpired = (token: string) => {
         try {
+            if(token === '') throw new Error('TOKEN_MISSING');
             const datamap = jwt_decode(token) as ParsedToken;
             const now = new Date();
             return +datamap.exp! * 1000 < now.getTime();

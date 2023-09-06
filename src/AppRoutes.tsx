@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, useLocation, useNavigate, Router} from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/css/App.css';
 import { initializeApp } from "firebase/app";
-import {getAuth, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
+import {getAuth, GoogleAuthProvider, onIdTokenChanged} from "firebase/auth";
 
 
 import S from "./app/settings";
@@ -16,6 +16,7 @@ import {useAuthStore} from "./app/auth/store";
 import {Error404Page} from "./app/pages/ErrorPages";
 import {LogoutAction} from "./app/auth/pages/LogoutAction";
 import {AuthOptionsPage} from "./app/auth/pages/AuthOptionsPage";
+import Auth from "./app/auth/Auth";
 
 
 const firebaseConfig = {
@@ -32,37 +33,44 @@ export const appProvider = new GoogleAuthProvider();
 
 
 function AppRoutes() {
-    const [isAuth, logout, login] = useAuthStore(state => [state.isAuth, state.logout, state.login]);
+    const authstore = useAuthStore();
 
-    // useEffect(() => {
-    //     const authlistener = onAuthStateChanged(appAuth, (user) => {
-    //         // TODO: Ensuring authentication:
-    //         //  Save token to localstorage
-    //         //  ORDER: store -> localstorage -> [user]-> logout()
-    //         //  if empty localstorage && !store: logout()
-    //         //  if empty localstorage && store: update to localstorage
-    //         //  if localstorage is fresh && !store: login()
-    //         //  if !localstorage && !store && user: then do nothing
-    //         console.log('USER:', user);
-    //         if(isAuth() && !user) logout();
-    //         logout();
-    //     });
-    //
-    //     return (() => authlistener());
-    // }, []);
+    useEffect(() => {
+        // When page is refreshed
+        const token = localStorage.getItem(S.keys.token) ?? '';
+        if(!authstore.isAuth() && token && !Auth.isTokenExpired(token)) authstore.login(token);
+
+        // When token is refreshed
+        const authlistener = onIdTokenChanged(appAuth, (user) => {
+            if(authstore.isAuth() && user) {
+                user.getIdToken()
+                    .then(token => authstore.changeToken(token))
+                    .catch(_ => authstore.logout());
+                return;
+            }
+            // authstore.logout();
+        }, () => {
+            console.log('onIdTokenChanged error');
+            authstore.logout();
+        });
+
+        return (() => authlistener());
+    }, []);
 
   return (
     <BrowserRouter>
       <Routes>
           <Route index element={<IndexPage />} />
 
-          <Route element={<ProtectedRoute enable={() => isAuth(false)} fallback={<HomeUserPage />} />}>
+          {/* Guest only */}
+          <Route element={<ProtectedRoute enable={() => authstore.isAuth(false)} fallback={<HomeUserPage />} />}>
               <Route path={S.paths.register} element={<EmailRegisterPage />} />
               <Route path={S.paths.signin} element={<EmailLogininPage />} />
               <Route path={S.paths.lostpass} element={<LostPasswordPage />} />
           </Route>
 
-          <Route element={<ProtectedRoute enable={isAuth} fallback={<AuthOptionsPage />} />}>
+          {/* Auth only */}
+          <Route element={<ProtectedRoute enable={authstore.isAuth} fallback={<AuthOptionsPage />} />}>
               <Route path={S.paths.signout} element={<LogoutAction />} />
           </Route>
 
