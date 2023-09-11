@@ -1,0 +1,31 @@
+$custom-theme-color: (
+    "gold": #d1b765,
+    "buy": #08BCA8,
+    "sell": #FF6962,
+);
+
+$theme-colors: map-merge($custom-theme-color, $theme-colors);
+
+$spacers: (
+    0: 0,
+    1: $spacer * .25,
+    2: $spacer * .5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 3,
+    6: $spacer * 4,
+    7: $spacer * 5,
+    8: $spacer * 6,
+    9: $spacer * 7,
+    10: $spacer * 8,
+    11: $spacer * 9,
+    12: $spacer * 10,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1120px
+);

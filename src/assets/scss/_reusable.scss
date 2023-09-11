@@ -1,0 +1,104 @@
+/*
+oooo d8b  .ooooo.  oooo  oooo   .oooo.o  .ooooo.
+`888""8P d88' `88b `888  `888  d88(  "8 d88' `88b
+ 888     888ooo888  888   888  `"Y88b.  888ooo888
+ 888     888    .o  888   888  o.  )88b 888    .o
+d888b    `Y8bod8P'  `V88V"V8P' 8""888P' `Y8bod8P'
+
+enchance 2022 nancyj-fancy
+*/
+$padding-inline-start:40px;
+$bottom-margin: 0.5rem;
+
+html, body {font-size:$font-size-base; font-family:$font-family; line-height:1.3rem;}
+body {overflow-y:scroll;}
+ul, ol, dl {padding:0; list-style:none; margin-bottom:$bottom-margin;}
+ul.list {list-style-type:disc; padding-inline-start:$padding-inline-start;}
+ol.list {list-style-type:decimal; padding-inline-start:$padding-inline-start;}
+
+h1, .h1, h2, .h2, h3, .h3 {font-family:$header-family;}
+h4, .h4, h5, .h5, h6, .h6 {margin-bottom:$bottom-margin;}
+h1, .h1 {margin-bottom:1rem; font-weight:$font-weight-bolder; line-height:3rem;}
+h2, .h2 {margin-bottom:.5rem; font-weight:$font-weight-light; line-height:2.5rem;}
+h3, .h3 {margin-bottom:.5rem; font-weight:$font-weight-bold; line-height:1.8rem;}
+h4, .h4 {line-height:1.7rem;}
+h5, .h5 {line-height:1.7rem;}
+p {margin-bottom:$bottom-margin;}
+//@include media-breakpoint-down(sm) {
+//    h1, .h1 {font-size:$font-size-base * 2.4; margin-bottom:1rem;}
+//    h2, .h2 {font-size:$font-size-base * 1.9; font-weight:$text-light;}
+//}
+
+.nobold {font-weight:normal;}
+.nomargin {margin:0;}
+.nopadding {padding:0;}
+
+@include media-breakpoint-up(lg) {
+    h1, .h1 {letter-spacing:-0.1rem;}
+}
+
+
+// Remove the arrow in buttons for the navbar. Place alongside .dropdown-toggle
+//.caret-off::before {display:none;}
+//.caret-off::after {display:none!important;}
+
+
+
+/*
+ .8888b
+88   "
+88aaa  .d8888b. 88d888b. 88d8b.d8b.
+88     88'  `88 88'  `88 88'`88'`88
+88     88.  .88 88       88  88  88
+dP     `88888P' dP       dP  dP  dP
+*/
+input[type="text"], input[type='password'] {
+    //min-height:calc(1.5em + 1rem + 2px); padding:0.5rem 1rem; font-size:1.25rem;
+    //&:focus {position:relative; z-index:1;}
+    //&::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder {color:red!important;}
+}
+ul.form {padding:0;
+    li {margin-bottom:0.8rem;
+        > div.text-danger:not(:empty) {margin:5px 0 7px;} /* Error message */
+    }
+    label {font-weight:bold;}
+}
+
+
+
+/*
+                           dP
+                           88
+88d888b. .d8888b. dP   .dP 88d888b. .d8888b. 88d888b.
+88'  `88 88'  `88 88   d8' 88'  `88 88'  `88 88'  `88
+88    88 88.  .88 88 .88'  88.  .88 88.  .88 88
+dP    dP `88888P8 8888P'   88Y8888' `88888P8 dP
+*/
+//.scrolling-down {transform:translateY(-100%); transition:all 0.3s ease-in-out;}
+//.scrolling-up {transform:translateY(0); transition:all 0.3s ease-in-out;}
+
+
+
+/*
+dP                  dP     dP
+88                  88     88
+88d888b. dP    dP d8888P d8888P .d8888b. 88d888b. .d8888b.
+88'  `88 88    88   88     88   88'  `88 88'  `88 Y8ooooo.
+88.  .88 88.  .88   88     88   88.  .88 88    88       88
+88Y8888' `88888P'   dP     dP   `88888P' dP    dP `88888P'
+*/
+.btn {
+    &.btn-gray {
+        @include button-variant($gray-200, #CCC, $onbackground, $gray-300);
+    }
+}
+
+
+/*
+Alert
+*/
+div.alert-list {margin-bottom:30px;
+    > div.alert {
+        &:not(:empty):not(:last-child) {margin-bottom:10px;}
+    }
+}

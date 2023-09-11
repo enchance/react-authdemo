@@ -1,0 +1,66 @@
+
+
+
+$enable-shadows: true;
+$enable-dark-mode: false;
+$enable-negative-margins: true;
+
+/* Light mode */
+$body-bg:           #efefef;
+$body-color:        #333;
+// ----------------------------------------
+$background:        $body-bg;
+$onbackground:      $body-color;
+
+/* Dark mode */
+//$darkmode-font:    #d8dee9;
+//$darkmode-content: #4c566a;
+//$darkmode-navbar:  #3b4252;
+//$darkmode-footer:  #4c566a;
+
+/* Colors */
+$primary:          #77c9e1;
+$secondary:        #88C0D0;
+$link-color:       #09F;
+// -----------------------------------------
+$onprimary:        #FFF;
+$onhover-primary:  $onprimary;
+$onsecondary:      $onbackground;
+$onhover-secondary:$onbackground;
+
+/* Font */
+$font-size-base:   1.1rem;
+$font-family-base: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$font-weight-light: 300;
+$font-weight-bolder:900;
+$h1-font-size:      $font-size-base * 3;
+$h2-font-size:      $font-size-base * 2.2;
+$h3-font-size:      $font-size-base * 1.5;
+$h4-font-size:      $font-size-base * 1.5;
+$h5-font-size:      $font-size-base * 1.75;
+// -----------------------------------------
+$font-family:       $font-family-base;
+$header-family:     Lato, "Times New Roman", Arial, "Helvetica Neue", Helvetica, sans-serif;
+$text-color:        $onbackground;
+$text-light:        $font-weight-light;
+//$gold:              #d1b765;
+//$gold-dark:         shade-color($gold, 35);
+//$gold-dark-icon:    shade-color($gold, 20);
+//$btn-height:        55px;
+
+/* Nav + Navbar */
+$nav-link-padding-y:0;
+$navbar-padding-y:  0;
+// -----------------------------------------
+$navbar-height: 60px;
+
+/* Button */
+$btn-padding-y: 100px;
+
+/* Grid scroller */
+//$grid-bg-rare:      tint-color(orange, 85);
+//$grid-bg-standard:  tint-color($primary, 95);
+//$spinner-color:     tint-color($primary, 30);
+
+/* Alert */
+$alert-padding-y: 10rem;
