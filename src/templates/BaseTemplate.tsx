@@ -9,7 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import S from "../app/settings";
 import {BootstrapDisplay} from "../app/helpers";
 import {useAuthStore} from "../app/auth/store";
-import {WrapperTemplate} from "../app/wrappers";
+import {WrapperTemplate} from "./WrapperTemplate";
+
 
 
 export const BaseTemplate: React.FC<PropsWithChildren> = props => {

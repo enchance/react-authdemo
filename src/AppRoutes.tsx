@@ -14,10 +14,11 @@ import {EmailSignInPage} from "./app/auth/pages/EmailSignInPage";
 import {HomeUserPage, IndexPage} from "./pages/IndexPages";
 import {LostPasswordPage} from "./app/auth/pages/LostPasswordPage";
 import {useAuthStore} from "./app/auth/store";
-import {Error404Page} from "./app/pages/ErrorPages";
+import {Error404Page, ErrorBoundary} from "./app/pages/ErrorPages";
 import {LogoutAction} from "./app/auth/pages/LogoutAction";
 import {AuthOptionsPage} from "./app/auth/pages/AuthOptionsPage";
 import Auth from "./app/auth/Auth";
+
 
 
 const firebaseConfig = {
@@ -59,27 +60,31 @@ function AppRoutes() {
     }, []);
 
   return (
-      <HelmetProvider>
-          <BrowserRouter>
-              <Routes>
-                  <Route index element={<IndexPage />} />
+      <ErrorBoundary>
+          <HelmetProvider>
 
-                  {/* Guest only */}
-                  <Route element={<ProtectedRoute enable={() => authstore.isAuth(false)} fallback={<HomeUserPage />} />}>
-                      <Route path={S.paths.register} element={<EmailRegisterPage />} />
-                      <Route path={S.paths.signin} element={<EmailSignInPage />} />
-                      <Route path={S.paths.lostpass} element={<LostPasswordPage />} />
-                  </Route>
+              <BrowserRouter>
+                  <Routes>props.children
+                      <Route index element={<IndexPage />} />
 
-                  {/* Auth only */}
-                  <Route element={<ProtectedRoute enable={authstore.isAuth} fallback={<AuthOptionsPage />} />}>
-                      <Route path={S.paths.signout} element={<LogoutAction />} />
-                  </Route>
+                      {/* Guest only */}
+                      <Route element={<ProtectedRoute enable={() => authstore.isAuth(false)} fallback={<HomeUserPage />} />}>
+                          <Route path={S.paths.register} element={<EmailRegisterPage />} />
+                          <Route path={S.paths.signin} element={<EmailSignInPage />} />
+                          <Route path={S.paths.lostpass} element={<LostPasswordPage />} />
+                      </Route>
 
-                  <Route path={'*'} element={<Error404Page />} />
-              </Routes>
-          </BrowserRouter>
-      </HelmetProvider>
+                      {/* Auth only */}
+                      <Route element={<ProtectedRoute enable={authstore.isAuth} fallback={<AuthOptionsPage />} />}>
+                          <Route path={S.paths.signout} element={<LogoutAction />} />
+                      </Route>
+
+                      <Route path={'*'} element={<Error404Page />} />
+                  </Routes>
+              </BrowserRouter>
+
+          </HelmetProvider>
+      </ErrorBoundary>
   );
 }
 

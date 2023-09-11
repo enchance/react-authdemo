@@ -1,7 +1,8 @@
 import React, {PropsWithChildren, useEffect} from "react";
-import {useAuthStore} from "./auth/store";
 import {useLocation, useNavigate} from "react-router-dom";
-import Auth from "./auth/Auth";
+
+import Auth from "../app/auth/Auth";
+import {useAuthStore} from "../app/auth/store";
 
 
 

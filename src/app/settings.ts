@@ -2,7 +2,7 @@
 
 class Production {
     readonly SITENAME = 'Authdemo';
-    SITEURL = 'https://aaa.com';
+    SITEURL = 'https://xxx.com';
     DEBUG = false;
 
     readonly paths = new RoutePath();
