@@ -57,9 +57,11 @@ input[type="text"], input[type='password'] {
     //&:focus {position:relative; z-index:1;}
     //&::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder {color:red!important;}
 }
-ul.form {
-    li {margin-bottom:0.8rem;}
-    //label {font-family:$header-family; font-weight:bold;}
+ul.form {padding:0;
+    li {margin-bottom:0.8rem;
+        > div.text-danger:not(:empty) {margin:5px 0 7px;} /* Error message */
+    }
+    label {font-weight:bold;}
 }
 
 
@@ -88,5 +90,15 @@ dP                  dP     dP
 .btn {
     &.btn-gray {
         @include button-variant($gray-200, #CCC, $onbackground, $gray-300);
+    }
+}
+
+
+/*
+Alert
+*/
+div.alert-list {margin-bottom:30px;
+    > div.alert {
+        &:not(:empty):not(:last-child) {margin-bottom:10px;}
     }
 }

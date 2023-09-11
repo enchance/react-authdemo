@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {BaseTemplate} from "../../../templates/BaseTemplate";
 import {z} from "zod";
-import {useForm, FieldValues} from "react-hook-form";
+import {useForm, FieldValues, RegisterOptions} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {FieldErrors} from "react-hook-form/dist/types/errors";
 import useSWR from "swr";
@@ -19,12 +19,104 @@ import {useAuthStore} from "../store";
 export const EmailRegisterPage: React.FC = () => {
     return (
         <BaseTemplate>
-            <UsingSWR />
+            <RegisterForm />
+            {/*<UsingSWR />*/}
             {/*<UsingUseEffect />*/}
         </BaseTemplate>
     )
 }
 
+
+const registerSchema = z.object({
+    email: z.string().email().trim().toLowerCase(),
+    password: z.string().min(6),
+    confirm: z.string().min(6),
+}).refine(data => data.confirm === data.password, {
+    message: 'Passwords must match',
+    path: ['confirm'],
+});
+type TRegisterSchema = z.infer<typeof registerSchema>;
+
+
+export const RegisterForm: React.FC = () => {
+    const authstore = useAuthStore();
+    const navigate = useNavigate();
+    const [formError, setFormError] = useState('')
+
+    // Form
+    const {register, handleSubmit, setError, setValue, formState: {errors, isSubmitting}} = useForm<TRegisterSchema>({
+        resolver: zodResolver(registerSchema),
+        // defaultValues: {
+        //     email: 'jim@servehappy.ph',
+        //     password: 'pass123',
+        //     confirm: 'pass123',
+        // }
+    });
+
+    const onSubmit = async (data: FieldValues) => {
+        if(isSubmitting) return;
+        await delay(2000);
+
+        // Run code here
+        createUserWithEmailAndPassword(appAuth, data['email'], data['password'])
+            .then(res => {
+                const user = res.user;
+                return user.getIdToken();
+            })
+            .then(token => {
+                authstore.login(token);
+                // TODO: Send token to server
+                navigate('/');
+            })
+            .catch(err => {
+                if(err.code === 'auth/email-already-in-use') {
+                    setError('email', {
+                        message: 'Email already in use'
+                    });
+                }
+                else {
+                    setFormError("Can't register you right now. Try again in a few seconds.");
+                }
+                console.log(err)
+                // setValue('pass1', '');
+                // setValue('pass2', '');
+            });
+    }
+
+    return (
+        <>
+            <div className="alert-list">
+                {formError && <div className="alert alert-danger">
+                    <i className="bi-exclamation-diamond"></i> {formError}
+                </div>}
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <ul className={'form'}>
+                    <li>
+                        <label htmlFor="email">Email</label>
+                        <input {...register('email')} type="text" className="form-control" id={'email'} name={'email'}
+                               disabled={isSubmitting} />
+                        <div className="text-danger">{errors.email?.message}</div>
+                    </li>
+                    <li>
+                        <label htmlFor={'password'}>Password</label>
+                        <input {...register('password')} type="password" className="form-control" name={'password'}
+                               id="password" disabled={isSubmitting} />
+                        <div className="text-danger mb-2">{errors.password?.message}</div>
+                        <input {...register('confirm')} type="password" className="form-control"
+                               name={'confirm'} disabled={isSubmitting} placeholder={'Retype'} />
+                        <div className="text-danger">{errors.confirm?.message}</div>
+                    </li>
+                </ul>
+                <div className={'submit'}>
+                    <button className="btn btn-primary w-100" disabled={isSubmitting} type="submit">
+                        {isSubmitting ? 'Signing you up...' : 'Register'}
+                    </button>
+                </div>
+            </form>
+        </>
+    )
+}
 
 
 export const UsingSWR: React.FC = () => {
@@ -34,8 +126,8 @@ export const UsingSWR: React.FC = () => {
     // Form
     const formschema = z.object({
         email: z.string().email().trim().toLowerCase(),
-        pass1: z.string().min(6).trim(),
-        pass2: z.string().min(6).trim(),
+        pass1: z.string().min(6),
+        pass2: z.string().min(6),
     });
     type FormSchema = z.infer<typeof formschema>;
     const {register, handleSubmit, reset, setError, formState: {errors, isSubmitting}} = useForm<FormSchema>({
@@ -91,7 +183,7 @@ export const UsingSWR: React.FC = () => {
                 <div className="alert alert-danger">Something wrong here</div>
             )}
             <form onSubmit={handleSubmit(onSubmit)}>
-                <ul className={'form nopadding'}>
+                <ul className={'form'}>
                     <li>
                         <label htmlFor="email">Email</label>
                         <input {...register('email')} type="text" className="form-control" id={'email'} name={'email'}
