@@ -32,6 +32,7 @@ export const EmailLogininPage: React.FC = () => {
 
     const onSubmit = async (data: FieldValues) => {
         if(isSubmitting) return;
+        setFormError('');
 
         await signInWithEmailAndPassword(appAuth, data['email'], data['password'])
             .then(res => {

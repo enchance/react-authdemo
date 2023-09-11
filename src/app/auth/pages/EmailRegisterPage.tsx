@@ -55,6 +55,7 @@ export const RegisterForm: React.FC = () => {
 
     const onSubmit = async (data: FieldValues) => {
         if(isSubmitting) return;
+        setFormError('');
         await delay(2000);
 
         // Run code here
