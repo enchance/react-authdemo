@@ -7,7 +7,7 @@ import {FieldErrors} from "react-hook-form/dist/types/errors";
 import useSWR from "swr";
 import {useNavigate} from "react-router-dom";
 import {createUserWithEmailAndPassword, UserCredential} from "firebase/auth";
-import {FirebaseError} from "firebase/app";
+import {Helmet} from "react-helmet-async";
 
 import S from "../../settings";
 import {appAuth} from "../../../AppRoutes";
@@ -18,11 +18,17 @@ import {useAuthStore} from "../store";
 
 export const EmailRegisterPage: React.FC = () => {
     return (
-        <BaseTemplate>
-            <RegisterForm />
-            {/*<UsingSWR />*/}
-            {/*<UsingUseEffect />*/}
-        </BaseTemplate>
+        <>
+            <Helmet>
+                <title>Register Account | {S.SITENAME}</title>
+            </Helmet>
+            <BaseTemplate>
+                <h1>Register Account</h1>
+                <RegisterForm />
+                {/*<UsingSWR />*/}
+                {/*<UsingUseEffect />*/}
+            </BaseTemplate>
+        </>
     )
 }
 

@@ -3,11 +3,14 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
 import {FieldValues, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from 'zod';
+import {Link} from "react-router-dom";
+import {Helmet} from "react-helmet-async";
 
 import {BaseTemplate} from "../../../templates/BaseTemplate";
 import {appAuth} from "../../../AppRoutes";
 import {useAuthStore} from "../store";
 import {useNavigate} from "react-router-dom";
+import S from "../../settings";
 
 
 
@@ -17,7 +20,7 @@ const signinSchema = z.object({
 });
 type TSignInSchema = z.infer<typeof signinSchema>;
 
-export const EmailLogininPage: React.FC = () => {
+export const EmailSignInPage: React.FC = () => {
     const authstore = useAuthStore();
     const navigate = useNavigate();
     const [formError, setFormError] = useState('');
@@ -60,31 +63,41 @@ export const EmailLogininPage: React.FC = () => {
     }
 
     return (
-        <BaseTemplate>
-            <div className="alert-list">
-                {formError && <div className="alert alert-danger">
-                    <i className="bi-exclamation-diamond"></i> {formError}
-                </div>}
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <ul className="form">
-                    <li>
-                        <label htmlFor="email">Email</label>
-                        <input type="text" className="form-control" id="email" {...register('email')} />
-                        <div className="text-danger">{errors.email?.message}</div>
-                    </li>
-                    <li>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" id="password" {...register('password')} />
-                        <div className="text-danger">{errors.password?.message}</div>
-                    </li>
-                </ul>
-                <div className="submit">
-                    <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
-                        {isSubmitting ? 'Loading...' : 'Submit'}
-                    </button>
+        <>
+            <Helmet>
+                <title>Sign-in | {S.SITENAME}</title>
+            </Helmet>
+            <BaseTemplate>
+                <h1>Sign-in</h1>
+                <div className="alert-list">
+                    {formError && <div className="alert alert-danger">
+                        <i className="bi-exclamation-diamond"></i> {formError}
+                    </div>}
                 </div>
-            </form>
-        </BaseTemplate>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <ul className="form">
+                        <li>
+                            <label htmlFor="email">Email</label>
+                            <input type="text" className="form-control" id="email" {...register('email')} />
+                            <div className="text-danger">{errors.email?.message}</div>
+                        </li>
+                        <li>
+                            <label htmlFor="password">Password</label>
+                            <input type="password" className="form-control" id="password" {...register('password')} />
+                            <div className="text-danger">{errors.password?.message}</div>
+                        </li>
+                    </ul>
+                    <div className="submit">
+                        <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
+                            {isSubmitting ? 'Loading...' : 'Submit'}
+                        </button>
+                    </div>
+                </form>
+                <div className="d-flex justify-content-center mt-4">
+                    <Link to={S.paths.lostpass} className={'px-2'}>Reset password</Link>
+                    <Link to={S.paths.register} className={'px-2'}>Register Account</Link>
+                </div>
+            </BaseTemplate>
+        </>
     )
 }

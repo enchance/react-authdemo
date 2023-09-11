@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import  {sendPasswordResetEmail} from 'firebase/auth';
 import {z} from 'zod';
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Helmet} from "react-helmet-async";
 
 import {BaseTemplate} from "../../../templates/BaseTemplate";
 import {FieldValues, useForm} from "react-hook-form";
 import {appAuth} from "../../../AppRoutes";
+import S from "../../settings";
 
 
 
@@ -41,29 +43,35 @@ export const LostPasswordPage: React.FC = () => {
     }
 
     return (
-        <BaseTemplate>
-            <div className="alert-list">
-                {formError && <div className="alert alert-danger">
-                    <i className="bi-exclamation-diamond"></i> {formError}
-                </div>}
-                {formSuccess && <div className="alert alert-success">
-                    <i className="bi-check-lg"></i> {formSuccess}
-                </div>}
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <ul className="form">
-                    <li>
-                        <label htmlFor="email">Email</label>
-                        <input type="text" className="form-control" id="email" {...register('email')} />
-                        <div className="text-danger">{errors.email?.message}</div>
-                    </li>
-                </ul>
-                <div className="submit">
-                    <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
-                        {isSubmitting ? 'Loading...' : 'Submit'}
-                    </button>
+        <>
+            <Helmet>
+                <title>Reset Password | {S.SITENAME}</title>
+            </Helmet>
+            <BaseTemplate>
+                <h1>Reset Password</h1>
+                <div className="alert-list">
+                    {formError && <div className="alert alert-danger">
+                        <i className="bi-exclamation-diamond"></i> {formError}
+                    </div>}
+                    {formSuccess && <div className="alert alert-success">
+                        <i className="bi-check-lg"></i> {formSuccess}
+                    </div>}
                 </div>
-            </form>
-        </BaseTemplate>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <ul className="form">
+                        <li>
+                            <label htmlFor="email">Email</label>
+                            <input type="text" className="form-control" id="email" {...register('email')} />
+                            <div className="text-danger">{errors.email?.message}</div>
+                        </li>
+                    </ul>
+                    <div className="submit">
+                        <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
+                            {isSubmitting ? 'Loading...' : 'Submit'}
+                        </button>
+                    </div>
+                </form>
+            </BaseTemplate>
+        </>
     )
 }

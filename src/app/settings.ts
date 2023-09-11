@@ -1,7 +1,7 @@
 
 
 class Production {
-    readonly SITENAME = 'Awesome Site';
+    readonly SITENAME = 'Authdemo';
     SITEURL = 'https://aaa.com';
     DEBUG = false;
 
