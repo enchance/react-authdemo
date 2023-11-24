@@ -21,14 +21,14 @@ export const ProtectedRoute = ({enable, fallback}: ProtectedRouteProps) => {
 
 export const BootstrapDisplay: React.FC = () => {
     return (
-        <div>
-            <span className={'d-block d-sm-none'}>XS</span>
-            <span className={'d-none d-sm-block d-md-none'}>SM</span>
-            <span className={'d-none d-md-block d-lg-none'}>MD</span>
-            <span className={'d-none d-lg-block d-xl-none'}>LG</span>
-            <span className={'d-none d-xl-block d-xxl-none'}>XL</span>
-            <span className={'d-none d-xxl-block'}>XXL</span>
-        </div>
+        <>
+            <span className={'nav-link d-block d-sm-none'}>XS</span>
+            <span className={'nav-link d-none d-sm-block d-md-none'}>SM</span>
+            <span className={'nav-link d-none d-md-block d-lg-none'}>MD</span>
+            <span className={'nav-link d-none d-lg-block d-xl-none'}>LG</span>
+            <span className={'nav-link d-none d-xl-block d-xxl-none'}>XL</span>
+            <span className={'nav-link d-none d-xxl-block'}>XXL</span>
+        </>
     )
 }
 

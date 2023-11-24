@@ -72,13 +72,14 @@ export const Header: React.FC = () => {
                                 <NavLink to={S.paths.lostpass} className={'nav-link'}>Reset Password</NavLink>
                             </>
                         )}
+                        <NavLink to={'/private'} className={'nav-link'}>Private only</NavLink>
+                    </Nav>
+                    <Nav>
                         {isAuth() && (
                             <>
                                 <NavLink to={S.paths.signout} className={'nav-link'}>Sign-out</NavLink>
                             </>
                         )}
-                    </Nav>
-                    <Nav>
                         <BootstrapDisplay />
                     </Nav>
                 </Navbar.Collapse>

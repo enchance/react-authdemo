@@ -19,6 +19,9 @@
 @import 'bootstrap_imports';
 
 // 6. Add additional custom code here
-@import 'reusable';
+@import 'boilerplate';
 @import 'templates';
-@import 'styles';
+
+
+
+#navbar {background:$primary!important;}

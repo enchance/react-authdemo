@@ -17,6 +17,7 @@ import {useAuthStore} from "./app/auth/store";
 import {Error404Page, ErrorBoundary} from "./app/pages/ErrorPages";
 import {LogoutAction} from "./app/auth/pages/LogoutAction";
 import {AuthOptionsPage} from "./app/auth/pages/AuthOptionsPage";
+import {PrivatePage} from "./app/pages/Private";
 import Auth from "./app/auth/Auth";
 
 
@@ -29,8 +30,8 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
     appId: process.env.REACT_APP_APPID,
 };
-export const app = initializeApp(firebaseConfig);
-export const appAuth = getAuth(app);
+export const appRoutes = initializeApp(firebaseConfig);
+export const appAuth = getAuth(appRoutes);
 export const appProvider = new GoogleAuthProvider();
 
 
@@ -76,6 +77,7 @@ function AppRoutes() {
 
                       {/* Auth only */}
                       <Route element={<ProtectedRoute enable={authstore.isAuth} fallback={<AuthOptionsPage />} />}>
+                          <Route path={'/private'} element={<PrivatePage />} />
                           <Route path={S.paths.signout} element={<LogoutAction />} />
                       </Route>
 

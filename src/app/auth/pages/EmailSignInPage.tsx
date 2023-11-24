@@ -68,34 +68,38 @@ export const EmailSignInPage: React.FC = () => {
                 <title>Sign-in | {S.SITENAME}</title>
             </Helmet>
             <BaseTemplate>
-                <h1>Sign-in</h1>
-                <div className="alert-list">
-                    {formError && <div className="alert alert-danger">
-                        <i className="bi-exclamation-diamond"></i> {formError}
-                    </div>}
-                </div>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <ul className="form">
-                        <li>
-                            <label htmlFor="email">Email</label>
-                            <input type="text" className="form-control" id="email" {...register('email')} />
-                            <div className="text-danger">{errors.email?.message}</div>
-                        </li>
-                        <li>
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" id="password" {...register('password')} />
-                            <div className="text-danger">{errors.password?.message}</div>
-                        </li>
-                    </ul>
-                    <div className="submit">
-                        <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
-                            {isSubmitting ? 'Loading...' : 'Submit'}
-                        </button>
+                <div className="card row col-4 mx-auto">
+                    <div className="card-body">
+                        <h1>Sign-in</h1>
+                        <div className="alert-list">
+                            {formError && <div className="alert alert-danger">
+                                <i className="bi-exclamation-diamond"></i> {formError}
+                            </div>}
+                        </div>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <ul className="form">
+                                <li>
+                                    <label htmlFor="email">Email</label>
+                                    <input type="text" className="form-control" id="email" {...register('email')} />
+                                    <div className="text-danger">{errors.email?.message}</div>
+                                </li>
+                                <li>
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" className="form-control" id="password" {...register('password')} />
+                                    <div className="text-danger">{errors.password?.message}</div>
+                                </li>
+                            </ul>
+                            <div className="submit">
+                                <button type="submit" className={'btn btn-primary w-100'} disabled={isSubmitting}>
+                                    {isSubmitting ? 'Loading...' : 'Submit'}
+                                </button>
+                            </div>
+                        </form>
+                        <div className="d-flex justify-content-center mt-4">
+                            <Link to={S.paths.lostpass} className={'px-2'}>Reset password</Link>
+                            <Link to={S.paths.register} className={'px-2'}>Register Account</Link>
+                        </div>
                     </div>
-                </form>
-                <div className="d-flex justify-content-center mt-4">
-                    <Link to={S.paths.lostpass} className={'px-2'}>Reset password</Link>
-                    <Link to={S.paths.register} className={'px-2'}>Register Account</Link>
                 </div>
             </BaseTemplate>
         </>

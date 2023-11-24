@@ -5,10 +5,12 @@ $enable-shadows: true;
 $enable-dark-mode: false;
 $enable-negative-margins: true;
 
-/* Light mode */
+/* Theme */
 $body-bg:           #efefef;
 $body-color:        #333;
-// ----------------------------------------
+$body-bg-dark:      #555;
+$body-color-dark:   #DDD;
+// bootstrap ------------------------------
 $background:        $body-bg;
 $onbackground:      $body-color;
 
@@ -22,7 +24,7 @@ $onbackground:      $body-color;
 $primary:          #77c9e1;
 $secondary:        #88C0D0;
 $link-color:       #09F;
-// -----------------------------------------
+// bootstrap ------------------------------
 $onprimary:        #FFF;
 $onhover-primary:  $onprimary;
 $onsecondary:      $onbackground;
@@ -38,7 +40,7 @@ $h2-font-size:      $font-size-base * 2.2;
 $h3-font-size:      $font-size-base * 1.5;
 $h4-font-size:      $font-size-base * 1.5;
 $h5-font-size:      $font-size-base * 1.75;
-// -----------------------------------------
+// bootstrap ------------------------------
 $font-family:       $font-family-base;
 $header-family:     Lato, "Times New Roman", Arial, "Helvetica Neue", Helvetica, sans-serif;
 $text-color:        $onbackground;
@@ -51,7 +53,7 @@ $text-light:        $font-weight-light;
 /* Nav + Navbar */
 $nav-link-padding-y:0;
 $navbar-padding-y:  0;
-// -----------------------------------------
+// bootstrap ------------------------------
 $navbar-height: 60px;
 
 /* Button */
