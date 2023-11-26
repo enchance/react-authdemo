@@ -1,7 +1,7 @@
 AuthDemo
 =============================
 
-React front end for testing backend authentication services.
+React front end for testing backend API authentication services.
 
 Authentication happens in the frontend using the Firebase package. Authorization is expected to happen in the 
 backend. This is done by sending the `idtoken` on every request.
@@ -9,7 +9,7 @@ backend. This is done by sending the `idtoken` on every request.
 Usage
 --------------------
 
-It's wihthout saying that you need a [Firebase project][Firebase] to use this package as it uses Firebase 
+It's without saying that you need a [Firebase project][Firebase] to use this package as it uses Firebase 
 Authentication to sign in users.
 
 [firebase]: https://firebase.google.com/
@@ -36,9 +36,11 @@ REACT_APP_APPID=
 
 Todo
 ------
-[x] Google signin
-[] Facebook signin
-[] Email signin
-[] Email registration
-[] Change email password
-[] Private page uses the `Authorization` header to access
+
+- [x] Google signin
+- [ ] Facebook signin
+- [ ] Twitter signin
+- [ ] Email signin
+- [ ] Email registration
+- [ ] Email lost password
+- [ ] Private page must use the `Authorization` header to access
