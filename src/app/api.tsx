@@ -10,5 +10,5 @@ export const api = axios.create({
 
 
 export const api_signin = async (token: string) => {
-    return await api.post('/auth/signin', token)
+    return await api.post(S.paths.signin, token)
 }

@@ -70,8 +70,8 @@ function AppRoutes() {
 
                       {/* Guest only */}
                       <Route element={<ProtectedRoute enable={() => authstore.isAuth(false)} fallback={<HomeUserPage />} />}>
-                          <Route path={S.paths.register} element={<EmailRegisterPage />} />
                           <Route path={S.paths.signin} element={<EmailSignInPage />} />
+                          <Route path={S.paths.register} element={<EmailRegisterPage />} />
                           <Route path={S.paths.lostpass} element={<LostPasswordPage />} />
                       </Route>
 
