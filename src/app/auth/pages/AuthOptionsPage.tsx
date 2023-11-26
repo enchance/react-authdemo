@@ -9,6 +9,7 @@ import {useAuthStore} from "../store";
 import {appAuth, appProvider} from "../../../AppRoutes";
 import Auth from "../Auth";
 import {BaseTemplate} from "../../../templates/BaseTemplate";
+import {api_signin} from "../../api";
 
 
 
@@ -30,7 +31,10 @@ export const AuthOptionsPage: React.FC = () => {
                 if(Auth.isTokenExpired(token)) return;
 
                 authstore.login(token!);
-                // console.log(token);
+                return api_signin(token)
+            })
+            .then(res => {
+                console.log(res?.data)
                 navigate('/');
             })
             .catch(err => {

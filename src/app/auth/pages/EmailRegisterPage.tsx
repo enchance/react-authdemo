@@ -14,6 +14,7 @@ import {appAuth} from "../../../AppRoutes";
 import {delay} from "../../utils";
 import {api} from "../../api";
 import {useAuthStore} from "../store";
+import {api_signin} from "../../api";
 
 
 export const EmailRegisterPage: React.FC = () => {
@@ -92,35 +93,48 @@ export const RegisterForm: React.FC = () => {
 
     return (
         <>
-            <div className="alert-list">
-                {formError && <div className="alert alert-danger">
-                    <i className="bi-exclamation-diamond"></i> {formError}
-                </div>}
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <ul className={'form'}>
-                    <li>
-                        <label htmlFor="email">Email</label>
-                        <input {...register('email')} type="text" className="form-control" id={'email'} name={'email'}
-                               disabled={isSubmitting} />
-                        <div className="text-danger">{errors.email?.message}</div>
-                    </li>
-                    <li>
-                        <label htmlFor={'password'}>Password</label>
-                        <input {...register('password')} type="password" className="form-control" name={'password'}
-                               id="password" disabled={isSubmitting} />
-                        <div className="text-danger mb-2">{errors.password?.message}</div>
-                        <input {...register('confirm')} type="password" className="form-control"
-                               name={'confirm'} disabled={isSubmitting} placeholder={'Retype'} />
-                        <div className="text-danger">{errors.confirm?.message}</div>
-                    </li>
-                </ul>
-                <div className={'submit'}>
-                    <button className="btn btn-primary w-100" disabled={isSubmitting} type="submit">
-                        {isSubmitting ? 'Signing you up...' : 'Register'}
-                    </button>
+            <Helmet>
+                <title>{S.SITENAME}</title>
+            </Helmet>
+            <div className={'row mt-5'}>
+                <div className="col col-md-7 col-lg-6 col-xl-4 mx-auto">
+                    <div className="card">
+                        <div className="card-body">
+
+                            <div className="alert-list">
+                                {formError && <div className="alert alert-danger">
+                                    <i className="bi-exclamation-diamond"></i> {formError}
+                                </div>}
+                            </div>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <ul className={'form'}>
+                                    <li>
+                                        <label htmlFor="email">Email</label>
+                                        <input {...register('email')} type="text" className="form-control" id={'email'} name={'email'}
+                                               disabled={isSubmitting} />
+                                        <div className="text-danger">{errors.email?.message}</div>
+                                    </li>
+                                    <li>
+                                        <label htmlFor={'password'}>Password</label>
+                                        <input {...register('password')} type="password" className="form-control" name={'password'}
+                                               id="password" disabled={isSubmitting} />
+                                        <div className="text-danger mb-2">{errors.password?.message}</div>
+                                        <input {...register('confirm')} type="password" className="form-control"
+                                               name={'confirm'} disabled={isSubmitting} placeholder={'Retype'} />
+                                        <div className="text-danger">{errors.confirm?.message}</div>
+                                    </li>
+                                </ul>
+                                <div className={'submit'}>
+                                    <button className="btn btn-primary w-100" disabled={isSubmitting} type="submit">
+                                        {isSubmitting ? 'Signing you up...' : 'Register'}
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
         </>
     )
 }
