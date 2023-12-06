@@ -31,6 +31,7 @@ export const AuthOptionsPage: React.FC = () => {
                 if(Auth.isTokenExpired(token)) return;
 
                 authstore.login(token!);
+                console.log(token)
                 return api_signin(token)
             })
             .then(res => {
