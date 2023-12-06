@@ -11,10 +11,10 @@ import {Helmet} from "react-helmet-async";
 
 import S from "../../settings";
 import {appAuth} from "../../../AppRoutes";
-import {delay} from "../../utils";
-import {api} from "../../api";
+import {delay} from "@app/utils";
+import {api} from "@app/api";
 import {useAuthStore} from "../store";
-import {api_signin} from "../../api";
+import {api_signin} from "@app/api";
 
 
 export const EmailRegisterPage: React.FC = () => {
@@ -73,7 +73,11 @@ export const RegisterForm: React.FC = () => {
             })
             .then(token => {
                 authstore.login(token);
-                // TODO: Send token to server
+                console.log(token)
+                return api_signin(token)
+            })
+            .then(res => {
+                console.log(res?.data)
                 navigate('/');
             })
             .catch(err => {
